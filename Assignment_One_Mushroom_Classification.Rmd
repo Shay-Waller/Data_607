@@ -1,0 +1,56 @@
+---
+title: 'Assignment One: Mushroom Classification'
+author: "Lisa Marsh"
+date: "February 6, 2018"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+
+Retrieve dataset.  This dataset contains data on the classification of mushrooms by whether they are edible or poisonous.
+```{r}
+mushrooms<-read.csv("https://archive.ics.uci.edu/ml/machine-learning-databases/mushroom/agaricus-lepiota.data", header=FALSE, stringsAsFactors=FALSE)
+```
+
+Create a data frame consisting of a subset of the columns in the dataset, including the column that indicates whether the mushroom is edible or poisonous.  The selected columns contain information concerning whether the mushroom is edible or poisonous, spore print color, population, and habitat.
+```{r}
+df2<-mushrooms [1:8124, c("V1","V21","V22","V23")]
+```
+Check the first few rows of the new data frame.
+```{r}
+ head(df2)
+```
+Load the car library.
+```{r}
+library(car)
+```
+Recode the abbreviations used in the data with words.
+```{r}
+df2$V1 <-recode(df2$V1, "'e'='Edible';'p'='Poisonous'")
+```
+```{r}
+df2$V21<-recode(df2$V21, "'k'='Black';'n'='Brown';'b'='Buff';'h'='Chocolate';'r'='green';'o'='Orange';'u'='Purple';'w'='White';'y'='Yellow'")
+```
+```{r}
+df2$V22<-recode(df2$V22, "'a'='Abundant';'c'='Clustered';'n'='Numerous';'s'='Scattered';'v'='Several';'y'='Solitary'")
+```
+```{r}
+df2$V23<-recode(df2$V23,  "'g'='Grasses';'l'='Leaves';'m'='Meadows';'p'='Paths';'u'='Urban';'w'='Waste';'d'='Woods'")
+```
+Check the first few lines.
+```{r}
+head(df2)
+```
+
+ Load the plyer library.
+```{r}
+library(plyr)
+```
+Rename the column names to provide information about the data contained in each column.
+```{r}
+head(rename(df2,c("V1"="CLASS","V21"="SPORE-PRINT-COLOR","V22"="POPULATION","V23"="HABITAT")))
+```
+
+
+
